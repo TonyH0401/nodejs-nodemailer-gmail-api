@@ -1,0 +1,1 @@
+nodemon is npm i nodemon --save-dev <=> npm install <package-name> --save-dev
