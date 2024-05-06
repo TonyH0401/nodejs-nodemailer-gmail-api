@@ -28,7 +28,14 @@ app.get("/", (req, res) => {
 });
 // API Routers:
 // Default Error Handling:
+app.use((req, res, next) => {
+  next(createError(404, "This directory does not exist!"));
+});
 // Initialize Server:
 app.listen(port, () => {
-  console.log(`> Website is running at http://localhost:${port}`);
+  console.log(
+    chalk.whiteBright.bgGreen.bold(
+      `> API Website is running 🚀 at http://localhost:${port}`
+    )
+  );
 });
