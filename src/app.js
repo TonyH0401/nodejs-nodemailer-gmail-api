@@ -23,7 +23,8 @@ app.use(helmet());
 app.get("/", (req, res) => {
   return res.status(200).json({
     code: 1,
-    message: "Default branch",
+    success: true,
+    message: "Welcome! Default Branch is Working 🔋!",
   });
 });
 // API Routers:
