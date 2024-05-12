@@ -24,13 +24,23 @@ app.get("/", (req, res) => {
   return res.status(200).json({
     code: 1,
     success: true,
-    message: "Welcome! Default Branch is Working 🔋!",
+    message: "Welcome, Default Branch is Working 🔋 !",
   });
 });
 // API Routers:
-// Default Error Handling:
+// Default Error Handlings:
 app.use((req, res, next) => {
-  next(createError(404, "This directory does not exist 🚫! yet"));
+  next(createError(404, "This directory does not exist ⚔️ !"));
+});
+app.use((err, req, res, next) => {
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.status(err.status || 500);
+  return res.status(404).json({
+    code: 0,
+    success: false,
+    message: err.message || "",
+  });
 });
 // Initialize Server:
 app.listen(port, () => {
