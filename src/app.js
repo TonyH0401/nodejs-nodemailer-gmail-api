@@ -8,6 +8,8 @@ const helmet = require("helmet");
 const path = require("path");
 const chalk = require("chalk");
 // Custom Utils (Requirements):
+const { reqLoggerDev } = require("./utils/requestLogger");
+const { limit10Req5Min } = require("./utils/requestLimiter");
 // Enviroment Variables:
 const port = process.env.BE_PORT || 8080;
 // Initialize NodeJS ExpressJS Application:
@@ -19,8 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
+app.use(reqLoggerDev);
 // Default Routers:
-app.get("/", (req, res) => {
+app.get("/", limit10Req5Min, (req, res) => {
   return res.status(200).json({
     code: 1,
     success: true,
