@@ -18,4 +18,9 @@ const reqLoggerCustom1 = morgan(function (tokens, req, res) {
   ].join(" ");
 });
 // Exports:
-module.exports = { reqLoggerTiny, reqLoggerDev };
+module.exports = {
+  reqLoggerTiny,
+  reqLoggerDev,
+  reqLoggerDevErr,
+  reqLoggerCustom1,
+};
