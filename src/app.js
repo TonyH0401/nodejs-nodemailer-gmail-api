@@ -31,6 +31,8 @@ app.get("/", limit10Req5Min, (req, res) => {
   });
 });
 // API Routers:
+const v1API = require("./api/v1/routes");
+app.use("/api/v1", v1API);
 // Default Error Handlings:
 app.use((req, res, next) => {
   next(createError(404, "This directory does not exist ⚔️ !"));
