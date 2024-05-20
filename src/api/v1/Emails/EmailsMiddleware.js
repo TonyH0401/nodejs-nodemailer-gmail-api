@@ -97,7 +97,10 @@ module.exports.sendEmail = async (req, res, next) => {
       code: 1,
       success: true,
       message: "Email is Sent ✔️!",
-      data: result.messageId,
+      data: {
+        messageId: result.messageId,
+        messagePreview: nodemailer.getTestMessageUrl(result),
+      },
     });
   } catch (error) {
     return next(createError(500, error.message));
