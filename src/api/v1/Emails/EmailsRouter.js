@@ -3,14 +3,16 @@ const router = require("express").Router();
 const createError = require("http-errors");
 // Custom Utils (Requirements):
 // Custom Middlewares:
-const {} = require("./EmailsMiddleware");
+const {
+  emailCredentialCheck,
+  emailInfoCheck,
+  sendEmail,
+} = require("./EmailsMiddleware");
 // Emails Routers:
-/*  */
-router.get("/", (req, res) => {
-  return res.status(200).json({
-    code: 1,
-  });
-}); 
+/* send email */
+router
+  .route("/send-email")
+  .post(emailCredentialCheck, emailInfoCheck, sendEmail);
 // Emails Error Handling:
 router
   .use((req, res, next) => {
