@@ -7,12 +7,17 @@ const {
   emailCredentialCheck,
   emailInfoCheck,
   sendEmail,
+  sendEmailEthereal,
 } = require("./EmailsMiddleware");
 // Emails Routers:
 /* send email */
 router
   .route("/send-email")
   .post(emailCredentialCheck, emailInfoCheck, sendEmail);
+/* send email using ethereal server */
+router
+  .route("/send-email-ethereal")
+  .post(emailCredentialCheck, emailInfoCheck, sendEmailEthereal);
 // Emails Error Handling:
 router
   .use((req, res, next) => {

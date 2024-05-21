@@ -9,6 +9,7 @@ const { validateEmails } = require("../../../utils/dataValidator");
 const gmailhost = process.env.GMAILHOST || "";
 const gmailuser = process.env.GMAILUSER || "";
 const apppassword = process.env.APPPASSWORD || "";
+const etherealhost = process.env.ETHEREALHOST || "";
 // Import Models:
 // Emails Middlewares:
 /* email credentials checker */
@@ -18,6 +19,8 @@ module.exports.emailCredentialCheck = async (req, res, next) => {
     if (!gmailuser) return next(createError(400, "Email User Not Found ⚠️!"));
     if (!apppassword)
       return next(createError(400, "Email Authentication Not Found ⚠️!"));
+    if (!etherealhost)
+      return next(createError(400, "Ethereal Host Not Found ⚠️!"));
     return next();
   } catch (error) {
     return next(createError(500, error.message));
@@ -25,8 +28,14 @@ module.exports.emailCredentialCheck = async (req, res, next) => {
 };
 /* email input info checker */
 module.exports.emailInfoCheck = async (req, res, next) => {
-  const { emailReceiver, emailSubject, emailText, emailCC, emailBCC } =
-    req.body;
+  const {
+    emailSender,
+    emailReceiver,
+    emailSubject,
+    emailText,
+    emailCC,
+    emailBCC,
+  } = req.body;
   try {
     if (!emailReceiver) {
       return next(createError(404, "There are no receivers!"));
@@ -61,6 +70,15 @@ module.exports.emailInfoCheck = async (req, res, next) => {
         }
       }
     }
+    if (emailSender) {
+      if (emailSender.length == 1) {
+        if (!validateEmails(emailSender)) {
+          return next(createError(404, "Invalid sender address!"));
+        }
+      } else {
+        return next(createError(404, "There is no valid sender address!"));
+      }
+    }
     return next();
   } catch (error) {
     return next(createError(500, error.message));
@@ -91,6 +109,57 @@ module.exports.sendEmail = async (req, res, next) => {
     /* prepare the email info */
     let info = {
       from: gmailuser,
+      to: emailReceiver,
+      cc: emailCC,
+      bcc: emailBCC,
+      subject: emailSubject,
+      text: emailText,
+      html: htmlContent,
+    };
+    /* sending the email info using async/await */
+    const result = await transporter.sendMail(info);
+    /* return success result */
+    return res.status(200).json({
+      code: 1,
+      success: true,
+      message: "Email is Sent ✔️!",
+      data: {
+        messageId: result.messageId,
+        messagePreview: nodemailer.getTestMessageUrl(result),
+      },
+    });
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};
+/* send email using ethereal server */
+module.exports.sendEmailEthereal = async (req, res, next) => {
+  const {
+    emailSender,
+    emailReceiver,
+    emailCC,
+    emailBCC,
+    emailSubject,
+    emailText,
+    htmlContent,
+  } = req.body;
+  try {
+    /* create test account */
+    const testAccount = await nodemailer.createTestAccount();
+    /* prepare the email transporter */
+    const transporter = nodemailer.createTransport({
+      host: etherealhost,
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+      attachDataUrls: true,
+    });
+    /* prepare the email info */
+    let info = {
+      from: emailSender,
       to: emailReceiver,
       cc: emailCC,
       bcc: emailBCC,
