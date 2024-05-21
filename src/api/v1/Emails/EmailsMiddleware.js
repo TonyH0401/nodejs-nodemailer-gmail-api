@@ -68,8 +68,14 @@ module.exports.emailInfoCheck = async (req, res, next) => {
 };
 /* send email */
 module.exports.sendEmail = async (req, res, next) => {
-  const { emailReceiver, emailCC, emailBCC, emailSubject, emailText } =
-    req.body;
+  const {
+    emailReceiver,
+    emailCC,
+    emailBCC,
+    emailSubject,
+    emailText,
+    htmlContent,
+  } = req.body;
   try {
     /* prepare the email transporter */
     const transporter = nodemailer.createTransport({
@@ -80,6 +86,7 @@ module.exports.sendEmail = async (req, res, next) => {
         user: gmailuser,
         pass: apppassword,
       },
+      attachDataUrls: true,
     });
     /* prepare the email info */
     let info = {
@@ -89,6 +96,7 @@ module.exports.sendEmail = async (req, res, next) => {
       bcc: emailBCC,
       subject: emailSubject,
       text: emailText,
+      html: htmlContent,
     };
     /* sending the email info using async/await */
     const result = await transporter.sendMail(info);
