@@ -223,6 +223,10 @@ module.exports.sendEmailEmbedAttachFile = async (req, res, next) => {
           filename: "file.txt",
           path: "./public/file.txt",
         },
+        {
+          filename: "file2.txt",
+          content: "This is raw input content",
+        },
       ],
     };
     /* sending the email info using async/await */
