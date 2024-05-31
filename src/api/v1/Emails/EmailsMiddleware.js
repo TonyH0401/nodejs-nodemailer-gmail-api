@@ -183,3 +183,61 @@ module.exports.sendEmailEthereal = async (req, res, next) => {
     return next(createError(500, error.message));
   }
 };
+/* send email with embed image and file attachment */
+module.exports.sendEmailEmbedAttachFile = async (req, res, next) => {
+  const {
+    emailReceiver,
+    emailCC,
+    emailBCC,
+    emailSubject,
+    emailText,
+    htmlContent,
+  } = req.body;
+  try {
+    /* prepare the email transporter */
+    const transporter = nodemailer.createTransport({
+      host: gmailhost,
+      port: 465,
+      secure: true,
+      auth: {
+        user: gmailuser,
+        pass: apppassword,
+      },
+    });
+    /* prepare the email info */
+    let info = {
+      from: gmailuser,
+      to: emailReceiver,
+      cc: emailCC,
+      bcc: emailBCC,
+      subject: emailSubject,
+      text: emailText,
+      html: htmlContent,
+      attachments: [
+        {
+          filename: "white-kitty-cat.jpeg",
+          path: "./public/white-kitty-cat.jpeg",
+          cid: "unique@nodemailer.com",
+        },
+        {
+          filename: "file.txt",
+          path: "./public/file.txt",
+        },
+      ],
+    };
+    /* sending the email info using async/await */
+    const result = await transporter.sendMail(info);
+    /* return success result */
+    return res.status(200).json({
+      code: 1,
+      success: true,
+      message: "Email is Sent ✔️!",
+      data: {
+        messageId: result.messageId,
+        messagePreview: nodemailer.getTestMessageUrl(result),
+      },
+    });
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};
