@@ -9,6 +9,7 @@ const {
   sendEmail,
   sendEmailEthereal,
   sendEmailEmbedAttachFile,
+  demo,
 } = require("./EmailsMiddleware");
 // Emails Routers:
 /* send email */
@@ -19,10 +20,11 @@ router
 router
   .route("/send-email-ethereal")
   .post(emailCredentialCheck, emailInfoCheck, sendEmailEthereal);
-/*  */
+/* send embedded image and attached file email using gmail */
 router
   .route("/send-email-embed-attach")
   .post(emailCredentialCheck, emailInfoCheck, sendEmailEmbedAttachFile);
+// router.route("/demo").post(demo);
 // Emails Error Handling:
 router
   .use((req, res, next) => {
