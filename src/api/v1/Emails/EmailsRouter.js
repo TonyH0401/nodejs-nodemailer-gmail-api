@@ -13,7 +13,7 @@ const {
   sendEmailUsingGoogleApi,
 } = require("./EmailsMiddleware");
 // Emails Routers:
-/* send email */
+/* send email using app password */
 router
   .route("/send-email")
   .post(emailCredentialCheck, emailInfoCheck, sendEmail);
@@ -21,11 +21,11 @@ router
 router
   .route("/send-email-ethereal")
   .post(emailCredentialCheck, emailInfoCheck, sendEmailEthereal);
-/* send embedded image and attached file email using gmail */
+/* send embedded image and attached file email using gmail app password */
 router
   .route("/send-email-embed-attach")
   .post(emailCredentialCheck, emailInfoCheck, sendEmailEmbedAttachFile);
-/*  */
+/* send embedded image and attached file email using gmail google api and google oauth 2.0*/
 router
   .route("/send-email-google-api")
   .post(googleCredentialCheck, emailInfoCheck, sendEmailUsingGoogleApi);
