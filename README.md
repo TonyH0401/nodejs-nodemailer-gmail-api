@@ -1,4 +1,4 @@
-# Optimized MySQL Query Generation with CrewAI and GroqAI on CLI (Version 03)
+# Sending Emails using Nodemailer in NodeJS
 
 Welcome to the MySQL Query Generation Project with CrewAI and GroqAI!
 
