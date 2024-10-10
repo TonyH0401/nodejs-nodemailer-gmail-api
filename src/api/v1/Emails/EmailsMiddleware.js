@@ -316,10 +316,11 @@ module.exports.sendEmailUsingGoogleApi = async (req, res, next) => {
         {
           filename: "file.txt",
           path: "./public/file.txt",
-        }, {
+        },
+        {
           filename: "fromgoogleapi.txt",
-          content: "This was sent using Google API!"
-        }
+          content: "This was sent using Google API!",
+        },
       ],
     };
     /* sending the email info using async/await */
