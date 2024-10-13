@@ -1,8 +1,8 @@
-# Sending Emails using Nodemailer in NodeJS
+# A Beginner’s Guide to Sending Emails with Nodemailer in NodeJS
 
-Welcome to the MySQL Query Generation Project with CrewAI and GroqAI!
+Welcome to a beginner's guide to Sending Emails using Nodemailer in NodeJS with Google API and Google OAuth 2.0!
 
-This project serves as a comprehensive guide, offering testing and implementation insights for efficiently generating MySQL queries using CrewAI and GroqAI. This project is the 3rd version in a series of similar projects.
+This project serves as a comprehensive guide, offering testing and implementation insights for sending emails using Nodemailer in NodeJS with Google API and Google OAuth 2.0.
 
 ## Table of Contents
 
@@ -89,7 +89,7 @@ filepath = "./mysql_db_schemas/{your-database-name}.sql"
 
 ## Development Documentation
 
-*Order from newest to oldest.*
+_Order from newest to oldest._
 
 ### 02/10/2024
 
@@ -158,10 +158,14 @@ filepath = "./mysql_db_schemas/{your-database-name}.sql"
 updating...
 
 ## Notes:
+
 - nodemon is npm i nodemon --save-dev <=> npm install <package-name> --save-dev
 - https://chatgpt.com/share/877de70d-73b7-44d3-b791-cb26601db92c, client supports html will render html, client supports text will render text
 
 ## Other requirements:
-You will need .env:
-- BE_PORT    
 
+You will need .env:
+
+- BE_PORT
+
+There is a little note to check for invalid_grant this is most often happens
