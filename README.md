@@ -8,7 +8,6 @@ This project serves as a comprehensive guide, offering testing and implementatio
 
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
-  - [Virtual Environment](#Virtual-Environment)
   - [Installation](#installation)
   - [Environment Variable](#Environment-Variable)
 - [Quick Start](#Quick-Start)
@@ -17,20 +16,18 @@ This project serves as a comprehensive guide, offering testing and implementatio
 
 ## Introduction
 
-This repository contains my implementation of CrewAI, an LLM framework, and GroqAI for MySQL Query Generation based User Specifications. Originally, it was planned for the database schemas to be a constant but I have changed it to reading the database schemas using files, it was later improved to reading from files and convert them into JSON format before processing them.
+This project leverages Nodemailer with Google API and OAuth 2.0 to create a secure email-sending service. Using OAuth 2.0 for authentication ensures both efficiency and data protection for automated emails or newsletters.
 
 This project's functionalities include:
 
-- MySQL Generation based on User Specifications.
-- Question Recommendations based on User Database Schemas.
+- Sending emails using Google Apps.
+- Sending emails using Ethereal Testing Server.
+- Sending an embed image and a text file email with Google Apps.
+- Sending (an embed image and a text file) email with Google API and Google OAuth 2.0.
 
 ## Getting Started
 
-I recommend running this project on **Python 3.10+**. This project was originally running on **Python 3.11.9**.
-
-### Virtual Environment
-
-A virtual environment should be setup for this project. You can use any of yours preferable virtual environment, I will use Anaconda/Miniconda as the Virtual Environment for this project.
+I recommend running this project on **NodeJS v20+** or **NodeJS v22+**. This project was originally running on **NodeJS v21.7.1**.
 
 ### Installation
 
